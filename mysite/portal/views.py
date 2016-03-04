@@ -64,6 +64,8 @@ def index(request):
 
     newlist = sorted(response_list_final, key=lambda k: k['question_id'])		
     
+    number_of_questions = len(new_lis)
+
     final_dict = {}
     for a in newlist:
     	if a['question_id'] in final_dict:
@@ -78,17 +80,76 @@ def index(request):
     				c['marked_yes'] = c['marked_yes'] + 1
     				break
 
-    age= [a['answer_text'] for a in new_lis[1]['answers']]
-    marked= [a['marked_yes'] for a in new_lis[1]['answers']]
-    # print pop
-    data = [
-        go.Bar(
-            x=age,
-            y=marked
-        )
-    ]
-    plot_url = py.plot(data, filename='basic-bar', auto_open=False)
-    final_url = plot_url + ".embed?link=false&modebar=false&autosize=True"
-    print final_url
-    url = {"url" : final_url, "survey_title" : survey_title}
-    return render(request, 'portal/index.html', url)
+    plot_list = []
+
+    for ques_index in range(2,2):
+        x_axis= [a['answer_text'] for a in new_lis[ques_index]['answers']]
+        y_axis= [a['marked_yes'] for a in new_lis[ques_index]['answers']]
+        # print pop
+        question_text = new_lis[ques_index]['question_text']
+        data = [
+            go.Bar(
+                x=x_axis,
+                y=y_axis
+            )
+        ]
+        file_name = "file" + str(ques_index)
+        plot_url = py.plot(data, filename=file_name , auto_open=False)
+        final_url = plot_url + ".embed?link=false&modebar=false&autosize=True"
+        plot_list.append({"question_text" : question_text, "url": final_url})      
+
+
+    # age= [a['answer_text'] for a in new_lis[1]['answers']]
+    # marked= [a['marked_yes'] for a in new_lis[1]['answers']]
+    # # print pop
+    # data = [
+    #     go.Bar(
+    #         x=age,
+    #         y=marked
+    #     )
+    # ]
+    # plot_url = py.plot(data, filename='basic-bar', auto_open=False)
+    # age_url = plot_url + ".embed?link=false&modebar=false&autosize=True"
+
+    # gender= [a['answer_text'] for a in new_lis[2]['answers']]
+    # marked= [a['marked_yes'] for a in new_lis[2]['answers']]
+    # # print pop
+    # data = [
+    #     go.Bar(
+    #         x=gender,
+    #         y=marked
+    #     )
+    # ]
+    # plot_url = py.plot(data, filename='basic-bar2', auto_open=False)
+    # gender_url = plot_url + ".embed?link=false&modebar=false&autosize=True"
+
+    # exercise= [a['answer_text'] for a in new_lis[3]['answers']]
+    # marked= [a['marked_yes'] for a in new_lis[3]['answers']]
+    # # print pop
+    # data = [
+    #     go.Bar(
+    #         x=exercise,
+    #         y=marked
+    #     )
+    # ]
+    # plot_url = py.plot(data, filename='basic-bar3', auto_open=False)
+    # exercise_url = plot_url + ".embed?link=false&modebar=false&autosize=True"
+
+    # often_exercise= [a['answer_text'] for a in new_lis[4]['answers']]
+    # marked= [a['marked_yes'] for a in new_lis[4]['answers']]
+    # # print pop
+    # data = [
+    #     go.Bar(
+    #         x=often_exercise,
+    #         y=marked
+    #     )
+    # ]
+    # plot_url = py.plot(data, filename='basic-bar4', auto_open=False)
+    # often_exercise_url = plot_url + ".embed?link=false&modebar=false&autosize=True"
+
+    #   print final_url
+    # url = {"age_url" : age_url, "gender_url" : gender_url, "exercise_url": exercise_url,
+    #         "often_exercise_url" : often_exercise_url, "survey_title" : survey_title}
+
+    context = {"plots" : plot_list, "survey_title" : survey_title}
+    return render(request, 'portal/index.html', context)
