@@ -5,6 +5,8 @@ from endpoints import HOST, SURVEY_LIST_ENDPOINT, SURVEY_DETAILS_ENDPOINT, USER_
 from .models import Users
 import requests
 import json
+import plotly.plotly as py
+import plotly.graph_objs as go
 
 def index(request):
     
@@ -60,7 +62,6 @@ def index(request):
 
     newlist = sorted(response_list_final, key=lambda k: k['question_id'])		
     
-
     final_dict = {}
     for a in newlist:
     	if a['question_id'] in final_dict:
@@ -75,10 +76,6 @@ def index(request):
     				c['marked_yes'] = c['marked_yes'] + 1
     				break
 
-    
-    import plotly.plotly as py
-    import plotly.graph_objs as go
-
     age= [a['answer_text'] for a in new_lis[1]['answers']]
     marked= [a['marked_yes'] for a in new_lis[1]['answers']]
     # print pop
@@ -91,7 +88,5 @@ def index(request):
     plot_url = py.plot(data, filename='basic-bar')
     final_url = plot_url + ".embed?link=false&modebar=false&autosize=True"
     print final_url
-    lol = {"title" : final_url}
-    return render(request, 'portal/index.html', lol)
-
-    # b6nnuuh9ab
+    url = {"url" : final_url}
+    return render(request, 'portal/index.html', url)
