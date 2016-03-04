@@ -102,11 +102,19 @@ def index(request):
         x_axis= [a['answer_text'] for a in new_lis[ques_index]['answers']]
         y_axis= [a['marked_yes'] for a in new_lis[ques_index]['answers']]
         # print pop
+        if ques_index == 2:
+            plot_orientation = 'h'
+            temp = x_axis
+            x_axis = y_axis
+            y_axis = temp
+        else:
+            plot_orientation = 'v'
         question_text = new_lis[ques_index]['question_text']
         data = [
             go.Bar(
                 x=x_axis,
-                y=y_axis
+                y=y_axis,
+                orientation = plot_orientation,
             )
         ]
         file_name = "file" + str(ques_index)
