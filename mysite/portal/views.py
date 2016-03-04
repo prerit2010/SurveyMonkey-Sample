@@ -75,5 +75,23 @@ def index(request):
     				c['marked_yes'] = c['marked_yes'] + 1
     				break
 
-    lol = {"title" : new_lis}
+    
+    import plotly.plotly as py
+    import plotly.graph_objs as go
+
+    age= [a['answer_text'] for a in new_lis[1]['answers']]
+    marked= [a['marked_yes'] for a in new_lis[1]['answers']]
+    # print pop
+    data = [
+        go.Bar(
+            x=age,
+            y=marked
+        )
+    ]
+    plot_url = py.plot(data, filename='basic-bar')
+    final_url = plot_url + ".embed?link=false&modebar=false&autosize=True"
+    print final_url
+    lol = {"title" : final_url}
     return render(request, 'portal/index.html', lol)
+
+    # b6nnuuh9ab
