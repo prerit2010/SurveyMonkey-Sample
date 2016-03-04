@@ -1,2 +1,1 @@
-# University-Portal
-Demo University portal
+#SurveyMoney-Sample
