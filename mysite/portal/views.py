@@ -23,6 +23,8 @@ def index(request):
     data = {"survey_id" : "76003826"}
     response = client.post(uri, data=json.dumps(data))
     survey_details = response.json()
+
+    survey_title = survey_details['data']['title']['text']
   
     uri = "%s%s" % (HOST, RESPONDENT_LIST_ENDPOINT)
     data = {"survey_id" : "76003826"}
@@ -85,8 +87,8 @@ def index(request):
             y=marked
         )
     ]
-    plot_url = py.plot(data, filename='basic-bar')
+    plot_url = py.plot(data, filename='basic-bar', auto_open=False)
     final_url = plot_url + ".embed?link=false&modebar=false&autosize=True"
     print final_url
-    url = {"url" : final_url}
+    url = {"url" : final_url, "survey_title" : survey_title}
     return render(request, 'portal/index.html', url)
