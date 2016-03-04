@@ -1,0 +1,6 @@
+HOST = "https://api.surveymonkey.net"
+SURVEY_LIST_ENDPOINT = "/v2/surveys/get_survey_list"
+SURVEY_DETAILS_ENDPOINT = "/v2/surveys/get_survey_details"
+USER_DETAILS_ENDPOINT = "/v2/user/get_user_details"
+RESPONDENT_LIST_ENDPOINT = "/v2/surveys/get_respondent_list"
+GET_RESPONSES_ENDPOINT = "/v2/surveys/get_responses"
