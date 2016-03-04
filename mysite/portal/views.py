@@ -98,7 +98,7 @@ def index(request):
 
     plot_list = []
 
-    for ques_index in range(2,2):
+    for ques_index in range(1,number_of_questions):
         x_axis= [a['answer_text'] for a in new_lis[ques_index]['answers']]
         y_axis= [a['marked_yes'] for a in new_lis[ques_index]['answers']]
         # print pop
