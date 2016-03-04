@@ -77,12 +77,3 @@ def index(request):
 
     lol = {"title" : new_lis}
     return render(request, 'portal/index.html', lol)
-
-
-
-
-
-# Hi, I am Prerit Garg, a final year B.Tech ( Computer Engineering ) Student in Jamia millia Islamia University. 
-# I have pretty good skills in python, flask, django, HTML, CSS, JavaScript, Boostrap etc. 
-# I have worked on several full stack projects involving both front end and back-end, while working with Zopper as an intern. 
-# I developed several dashboards and RESTful APIs. I would like to contribute to the idea "Creator Dashboard" this year as the project for Gsoc 2016. Please help me get started.
